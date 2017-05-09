@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>测试页面</title>
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link type="text/css" rel="stylesheet" href="src/css/index.css">
+        <script src="lib/jquery.min.js"></script>
+        <script src="src/js/index.js"></script>
+    </head>
+    <body>
+        <div id="test">
+            <div class="stdmsg">
+                <div id="name" class="name">姓名:{{name}}</div>
+                <div id="sex" class="sex">性别:{{sex}}</div>
+                <div g-if="mum.age>30 || mum.age<20">
+                    <div id="mumName" class="mum-name" g-on:click="clickMe(3)">妈妈名字:{{mum.name}}</div>
+                    <div id="mumSex" class="mum-sex">妈妈性别:{{mum.sex}}</div>
+                </div>
+                <input type="text" g-model="mum.name"/>
+                <!--<img g-bind:src="imgLink" alt="" />-->
+                <div g-for="child in children" class="child">
+                    <div g-if="child.age>30" g-on:click="clickMe">
+                    孩子的名字 {{child.name}}
+                    </div>
+                </div>
+
+                <input type="text" g-model="mum.name"/>
+            </div>
+        </div>
+    </body>
+</html>
