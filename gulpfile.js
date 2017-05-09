@@ -2,6 +2,7 @@
 var gulp = require('gulp');
 //var $ = require('gulp-load-plugins')(); //这个地方可以使用 $.less这种写法 代替 require引入 但是为了代码清晰 还是挨个 require
 var less = require('gulp-less');
+var rename = require('gulp-rename');
 var cleanCss = require('gulp-clean-css');
 var stripDebug = require('gulp-strip-debug');
 var stripComments = require('gulp-strip-comments');
@@ -75,6 +76,16 @@ gulp.task("js",function(cb){
         .pipe(gulp.dest(jsDestPath))
         .pipe(rev.manifest())
         .pipe(gulp.dest(jsDestPath));
+});
+
+gulp.task("build_gv",function(cb){
+    var jsDestPath = currentPath+'/src/js/GV-*.js';
+    return gulp.src(jsDestPath)
+        .pipe(rename(function(path){
+            path.basename='gv.min';
+            path.extname = ".js";
+        }))
+        .pipe(gulp.dest('build/'));
 });
 
 gulp.task("lib",function(){
@@ -167,3 +178,7 @@ gulp.task("publish_webpack",function(cb){
 gulp.task('serve',['publish_webpack','server_start','watch_dev']);
 
 gulp.task('default',['serve']);
+
+gulp.task('build',function(cb){
+    sequence('publish','build_gv')(cb);
+});
