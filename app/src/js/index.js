@@ -41,5 +41,5 @@ $(function(){
             age:45
         });
         _gv.$data.children[0].name="gagaprince";
-    },2000);
+    },4000);
 })

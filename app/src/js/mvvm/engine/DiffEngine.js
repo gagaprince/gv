@@ -18,6 +18,15 @@ var DiffEngine = {
                 this.renderModifyNode(newChild,oldChild);
                 oldChild.addFlag("modifyOld");
                 this.diffTree(oldChild,newChild);
+                //如果oldChild 和oldChildren[i]不相等 则
+                if(oldChild!=oldChildren[i]){//说明老的节点位置发生改变 需要重新插入
+                    if(i==0){
+                        this.insertPre(newChild.getDom(),newChild.getParent().getDom());
+                    }else{
+                        var preChild = newChildren[i-1];
+                        this.insertAfter(newChild.getDom(),preChild.getDom());
+                    }
+                }
             }else{
                 //同名老节点不存在 直接添加新节点 其所有子节点都需要添加
                 var domP = newChild.getParent().getDom();
@@ -32,6 +41,23 @@ var DiffEngine = {
                 var domC = oldChild.getDom();
                 domP.removeChild(domC);
             }
+        }
+    },
+    insertPre:function(newEl,parent){
+        var first = parent.firstChild;
+        if(first){
+            parent.insertBefore(newEl,first);
+        }else{
+            parent.appendChild(newEl);
+        }
+    },
+    insertAfter:function(newEl, targetEl)
+    {
+        var parentEl = targetEl.parentNode;
+        if(parentEl.lastChild == targetEl){
+            parentEl.appendChild(newEl);
+        }else{
+            parentEl.insertBefore(newEl,targetEl.nextSibling);
         }
     },
     //渲染更改dom
