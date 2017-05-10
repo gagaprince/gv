@@ -1,1 +1,2 @@
-require('../mvvm/GV.js');
+var GV =window.GV = require('../mvvm/GV');
+module.exports = GV;

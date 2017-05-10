@@ -1,4 +1,5 @@
 "use strict";
+//require('../../../build/gv.min');
 var GV = require('./mvvm/GV');
 $(function(){
     var _gv = new GV({
